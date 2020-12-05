@@ -3,3 +3,24 @@
   = @movie.description
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+  %br/
+  %h3 Add a comment
+  = form_with(model: [ @movie, @movie.comments.build], local: true) do |form|
+    %p
+      = form.text_area :content, cols: 50, rows: 5
+    %p
+      = form.submit "Add"
+- @movie.comments.each do |comment|
+  - if comment.user
+    .panel.panel-default
+      .panel-heading
+        .panel-title.pull-left
+          %strong= comment.user.name
+          commented
+          = comment.created_at.strftime("%b %d, %Y")
+        .panel-title.pull-right
+          - if user_signed_in? && comment.user.id == current_user.id
+            = link_to 'Delete', [comment.movie, comment], method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-default btn-sm'
+        .clearfix
+      .panel-body
+        = comment.content

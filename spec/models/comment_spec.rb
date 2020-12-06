@@ -7,6 +7,7 @@ RSpec.describe Comment, type: :model do
 
   it { should belong_to(:movie) }
   it { should belong_to(:user) }
+  it { should validate_uniqueness_of(:movie_id).scoped_to(:user_id).with_message("You can leave only one comment to the movie") }
 
   it "is valid with valid attributes" do
     subject.content = "Sample content"

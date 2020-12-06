@@ -30,7 +30,7 @@ class User < ApplicationRecord
     User.joins(:comments)
         .where('comments.created_at >= ?', 7.days.ago.beginning_of_day)
         .group('comments.user_id')
-        .order('COUNT(comments.user_id) DESC')
+        .order(Arel.sql('COUNT(comments.user_id) DESC'))
         .limit(10)
         .select(:id, :name, 'COUNT(comments.user_id) as number_of_comments')
   end

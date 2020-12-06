@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  expose :top_commenters, -> { User.count_comments }
+
   def create
     @movie = Movie.find(params[:movie_id])
     @comment = @movie.comments.create(comment_params)

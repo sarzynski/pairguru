@@ -25,4 +25,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :phone_number, format: { with: /\A[+]?\d+(?>[- .]\d+)*\z/, allow_nil: true }
+
+  def self.count_comments
+    User.joins(:comments)
+        .where('comments.created_at >= ?', 7.days.ago.beginning_of_day)
+        .group('comments.user_id')
+        .order('COUNT(comments.user_id) DESC')
+        .limit(10)
+        .select(:id, :name, 'COUNT(comments.user_id) as number_of_comments')
+  end
 end

@@ -4,8 +4,8 @@ describe "Genres requests", type: :request do
   let!(:movie) { create(:movie) }
   let!(:comment) { create(:comment, movie_id: movie.id)}
 
-  describe "genre list" do
-    it "displays only related movies" do
+  describe "comments list" do
+    it "displays comment" do
       visit "/movies/#{movie.id}"
       expect(page).to have_content("commented")
     end

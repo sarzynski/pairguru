@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "Comments requests", type: :request do
   let!(:movie) { create(:movie) }
-  let!(:comment) { create(:comment, content: "Sample comment", movie_id: movie.id)}
+  let!(:comment) { create(:comment, content: "Sample comment", movie_id: movie.id) }
 
   describe "comments list" do
     it "displays comment" do

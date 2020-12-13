@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "Top commenters requests", type: :request do
   let!(:movie) { create(:movie) }
-  let(:user) { create(:user, name: "Lorem") }
+  let!(:user) { create(:user, name: "Lorem") }
   let!(:comment) { create(:comment, content: "Sample comment", user_id: user.id, movie_id: movie.id)}
 
   describe "top commenters list" do

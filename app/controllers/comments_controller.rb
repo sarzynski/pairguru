@@ -16,8 +16,12 @@ class CommentsController < ApplicationController
   def destroy
     @movie = Movie.find(params[:movie_id])
     @comment = @movie.comments.find(params[:id])
-    @comment.destroy
-    redirect_to movie_path(@movie)
+    if @comment.destroy
+      redirect_to movie_path(@movie)
+    else
+      flash[:error] = @comment.errors.full_messages.to_sentence
+      redirect_back(fallback_location: movie_path(@movie))
+    end
   end
 
   private

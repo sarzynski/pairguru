@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   subject { described_class.new }
-  let(:movie) {create(:movie)}
-  let(:user) {create(:user)}
+  let!(:movie) { create(:movie) }
+  let!(:user) { create(:user) }
 
   it { should belong_to(:movie) }
   it { should belong_to(:user) }

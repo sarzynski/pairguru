@@ -7,15 +7,15 @@ class TitleBracketsValidator < ActiveModel::Validator
   }.freeze
 
   def validate(record)
-    record.errors.add(:title, "title should not have empty brackets ") if contains_empty_brackets(record.title)
-    record.errors.add(:title, "title should have only closed brackets") if !contains_closed_brackets(record.title)
+    record.errors.add(:title, "title should not have empty brackets ") if contains_empty_brackets?(record.title)
+    record.errors.add(:title, "title should have only closed brackets") if !contains_closed_brackets?(record.title)
   end
 
-  def contains_empty_brackets(title)
+  def contains_empty_brackets?(title)
     EMPTY_BRACKETS.any? { |brackets| title.include?(brackets) }
   end
 
-  def contains_closed_brackets(title)
+  def contains_closed_brackets?(title)
     opening_brackets = []
     title.each_char do |char|
       opening_brackets << char if BRACKET_SYMBOLS.key?(char)
